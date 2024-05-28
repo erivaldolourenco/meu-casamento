@@ -4,11 +4,12 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title>Wedding | Template </title>
+    <title>Erivaldo&Evelyn</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="manifest" href="site.webmanifest">
-    <link rel="shortcut icon" type="image/x-icon" href="assets/img/favicon.ico">
+    {% include "meta-tags.html" %}
+{#    <link rel="manifest" href="site.webmanifest">#}
+    <link rel="shortcut icon" type="image/x-icon" href="{% static 'assets/img/site/icon.ico' %}">
 
     <!-- CSS here -->
     <link rel="stylesheet" href="{% static 'assets/css/bootstrap.min.css' %}">
@@ -30,7 +31,7 @@
         <div class="preloader-inner position-relative">
             <div class="preloader-circle"></div>
             <div class="preloader-img pere-text">
-                <img src="{% static 'assets/img/logo/logo.png' %}" alt="">
+                <img src="{% static 'assets/img/site/logo.png' %}" alt="">
             </div>
         </div>
     </div>
@@ -82,17 +83,14 @@
                 <div class="col-xl-7 col-lg-8">
                     <div class="section-tittle text-center mb-70">
                         <h2>Nossa História de Amor</h2>
-                        <img src="{% static 'assets/img/gallery/tittle_img.png' %}" alt="">
-                        <p>Quisque nec facilisis sem. In at commodo velit. Aliquam tempor volutpat laoreet. Quisque non tellus eleifend arcu gravida aliquam. Vivamus quis consequat nisl, nec luctus libero. Nam sodales sem
-                            egestas sem blandit volutpat. </p>
+{#                        <img src="{% static 'assets/img/gallery/tittle_img.png' %}" alt="">#}
                     </div>
                 </div>
             </div>
             <div class="row justify-content-center">
                 <div class="col-lg-5">
-                    <div class="story-caption background-img mb-40" style="background-image: url({% static 'assets/img/gallery/story2.jpg' %});">
+                    <div class="story-caption background-img mb-40" style="background-image: url({% static 'assets/img/site/nossa-historia.jpg' %});">
                         <div class="story-details">
-                            <h4>A proposta</h4>
                             <p>Proin at sapien ipsum. Aenean placerat, quam ac tempor congue, orci est luctus ex, ut vestibulum ipsum nisl eu nisi.</p>
                             <p>Proin at sapien ipsum. Aenean placerat, quam ac tempor.</p>
                         </div>
@@ -100,7 +98,7 @@
                 </div>
                 <div class="col-lg-5">
                     <div class="story-img">
-                        <img  class="story2" src="{% static 'assets/img/gallery/story1.jpg' %}" alt="">
+                        <img  class="story2" src="{% static 'assets/img/site/erivaldo-evelyn.jpeg' %}" alt="">
                     </div>
                 </div>
             </div>
@@ -115,7 +113,7 @@
                 <div class="col-lg-8">
                     <div class="section-tittle text-center mb-70">
                         <h2>Informações sobre o casamento</h2>
-                        <img src="{% static 'assets/img/gallery/tittle_img.png' %}" alt="">
+{#                        <img src="{% static 'assets/img/gallery/tittle_img.png' %}" alt="">#}
                         <p>Quisque nec facilisis sem. In at commodo velit. Aliquam tempor volutpat laoreet. Quisque non tellus eleifend arcu gravida aliquam. Vivamus quis consequat nisl</p>
                     </div>
                 </div>
@@ -157,28 +155,28 @@
                                 <!-- Counter Up -->
                                 <div class="single-counter text-center">
                                     <span id="days" class="counter">0</span>
-                                    <p>days</p>
+                                    <p>dias</p>
                                 </div>
                             </div>
                             <div class="col-lg-2 col-md-6 col-sm-6">
                                 <!-- Counter Up -->
                                 <div class="single-counter active text-center">
                                     <span id="hours" class="counter">0</span>
-                                    <p>hours</p>
+                                    <p>horas</p>
                                 </div>
                             </div>
                             <div class="col-lg-2 col-md-6 col-sm-6">
                                 <!-- Counter Up -->
                                 <div class="single-counter text-center">
                                     <span id="minutes" class="counter">0</span>
-                                    <p>mins</p>
+                                    <p>minutos</p>
                                 </div>
                             </div>
                             <div class="col-lg-3 col-md-6 col-sm-6">
                                 <!-- Counter Up -->
                                 <div class="single-counter text-center">
                                     <span id="seconds" class="counter">0</span>
-                                    <p>secs</p>
+                                    <p>segundos</p>
                                 </div>
                             </div>
                         </div>
@@ -245,7 +243,7 @@
     </div>
     <!-- Gallery Area End -->
     <!--? Gift Start -->
-    <section class="gift-area gift-padding fix" data-background="{% static 'assets/img/gallery/section_bg3.png' %}">
+    <section class="gift-area gift-padding fix" data-background="{% static 'assets/img/site/secao-confirmar-presenca.png' %}">
         <div class="container">
             <div class="row">
                 <div class="col-12">
@@ -297,7 +295,9 @@
 {#        </div>#}
 {#    </div>#}
 {#    <!-- Gallery-2 img End-->#}
-{#    AREA DO MAPA AQUI#}
+
+    {% include "map-area.html" %}
+
 </main>
 {% include "footer.html" %}
 
