@@ -6305,3 +6305,6 @@ b, sup, sub, u, del {
 .switch-wrap {
     margin-bottom: 10px
 }
+.card-img-top{
+    max-height: 15rem;
+}

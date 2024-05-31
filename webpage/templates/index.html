@@ -1,1 +1,223 @@
+
 {% extends "base.html" %}
+{% load static %}
+
+{%block content %}
+<!--? Slider Area Start-->
+    <div class="slider-area">
+        <div class="slider-active">
+            <!-- Single Slider -->
+            <div class="single-slider slider-height hero-overly d-flex align-items-center">
+                <div class="container">
+                    <div class="row d-flex align-items-center">
+                        <div class="col-xl-8 col-lg-6 col-md-8 ">
+                            <div class="hero__caption">
+                                <span data-animation="fadeInLeft" data-delay=".3s">{{ data_casamento }}</span>
+                                <h1 data-animation="fadeInLeft" data-delay=".5s" data-duration="2000ms">{{ noivo }}<strong> & </strong>
+                                    {{ noiva }}</h1>
+                                <p data-animation="fadeInLeft" data-delay=".9s">Irão se casar</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Single Slider -->
+            <div class="single-slider slider-height hero-overly d-flex align-items-center">
+                <div class="container">
+                    <div class="row d-flex align-items-center">
+                        <div class="col-xl-8 col-lg-6 col-md-8 ">
+                            <div class="hero__caption">
+                                <span data-animation="fadeInLeft" data-delay=".3s">{{ data_casamento }}</span>
+                                <h1 data-animation="fadeInLeft" data-delay=".5s" data-duration="2000ms">{{ noivo }}<strong> & </strong>
+                                    {{ noiva }}</h1>
+                                <p data-animation="fadeInLeft" data-delay=".9s">Irão se casar</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Slider Area End-->
+    <!--? Our Story Start -->
+    <div class="Our-story-area story-padding">
+        <div class="container">
+            <!-- Section Tittle -->
+            <div class="row d-flex justify-content-center">
+                <div class="col-xl-7 col-lg-8">
+                    <div class="section-tittle text-center mb-70">
+                        <h2>Nossa História de Amor</h2>
+{#                        <img src="{% static 'assets/img/gallery/tittle_img.png' %}" alt="">#}
+                    </div>
+                </div>
+            </div>
+            <div class="row justify-content-center">
+                <div class="col-lg-5">
+                    <div class="story-caption background-img mb-40" style="background-image: url({% static 'assets/img/site/nossa-historia.jpg' %});">
+                        <div class="story-details">
+                            <p>Proin at sapien ipsum. Aenean placerat, quam ac tempor congue, orci est luctus ex, ut vestibulum ipsum nisl eu nisi.</p>
+                            <p>Proin at sapien ipsum. Aenean placerat, quam ac tempor.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-5">
+                    <div class="story-img">
+                        <img  class="story2" src="{% static 'assets/img/site/erivaldo-evelyn.jpeg' %}" alt="">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Our Story End -->
+    <!--? Services Start -->
+    <section class="pricing-card-area section-padding30 section-bg" data-background="assets/img/gallery/section_bg1.png">
+        <div class="container">
+                <!-- Section Tittle -->
+                <div class="row d-flex justify-content-center">
+                <div class="col-lg-8">
+                    <div class="section-tittle text-center mb-70">
+                        <h2>Informações sobre o casamento</h2>
+{#                        <img src="{% static 'assets/img/gallery/tittle_img.png' %}" alt="">#}
+                        <p>Quisque nec facilisis sem. In at commodo velit. Aliquam tempor volutpat laoreet. Quisque non tellus eleifend arcu gravida aliquam. Vivamus quis consequat nisl</p>
+                    </div>
+                </div>
+            </div>
+            <div class="row d-flex justify-content-center">
+
+                <div class="col-xl-4 col-lg-4 col-md-6">
+                    <div class="single-card active text-center mb-30">
+                        <div class="card-top">
+                            <span class="flaticon-project"></span>
+                            <h4>Cerimônia / Festa</h4>
+                        </div>
+                        <div class="card-bottom">
+                            <ul>
+                                <li><i class="fas fa-calendar-alt"></i>07 Dezembro de 2024</li>
+                                <li><i class="far fa-clock"></i>15:30</li>
+                                <li><i class="fas fa-map-marker-alt"></i>Rey House Eventos</li>
+                                <li>Avenida José Manhães nº 605, Santos Dumont, Maceió, Alagoas</li>
+                                <li><i class="far fa-map"></i> Confira o mapa</li>
+                            </ul>
+                        </div>
+{#                        <div class="card-buttons mt-30">#}
+{#                            <a href="#" class="btn card-btn1">Get Started</a>#}
+{#                        </div>#}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Services Card End -->
+    <!--? Count Down Start -->
+    <div class="count-down-area">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-12 col-md-12">
+                    <div class="count-down-wrapper" >
+                        <div class="row justify-content-between">
+                            <div class="col-lg-3 col-md-6 col-sm-6">
+                                <!-- Counter Up -->
+                                <div class="single-counter text-center">
+                                    <span id="days" class="counter">0</span>
+                                    <p>dias</p>
+                                </div>
+                            </div>
+                            <div class="col-lg-2 col-md-6 col-sm-6">
+                                <!-- Counter Up -->
+                                <div class="single-counter active text-center">
+                                    <span id="hours" class="counter">0</span>
+                                    <p>horas</p>
+                                </div>
+                            </div>
+                            <div class="col-lg-2 col-md-6 col-sm-6">
+                                <!-- Counter Up -->
+                                <div class="single-counter text-center">
+                                    <span id="minutes" class="counter">0</span>
+                                    <p>minutos</p>
+                                </div>
+                            </div>
+                            <div class="col-lg-3 col-md-6 col-sm-6">
+                                <!-- Counter Up -->
+                                <div class="single-counter text-center">
+                                    <span id="seconds" class="counter">0</span>
+                                    <p>segundos</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Count Down End -->
+    <!--? Gallery Area Start -->
+    <div class="gallery-area section-padding4">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-4 col-md-6">
+                    <div class="single-gallery mb-30">
+                        <div class="gallery-img" style="background-image: url({% static 'assets/img/gallery/gallery1.png' %});">
+                        </div>
+                        <div class="thumb-content-box">
+                            <div class="thumb-content">
+                                <h3>image 01</h3>
+                                <a href="{% static 'assets/img/gallery/gallery1.png' %}" class="menorie-icon"> <i class="ti-plus"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-8 col-md-6">
+                    <div class="single-gallery mb-30">
+                        <div class="gallery-img" style="background-image: url({% static 'assets/img/gallery/gallery2.png' %});">
+                        </div>
+                        <div class="thumb-content-box">
+                            <div class="thumb-content">
+                                <h3>image 02</h3>
+                                <a href="{% static 'assets/img/gallery/gallery1.png' %}" class="menorie-icon"> <i class="ti-plus"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-8 col-md-6">
+                    <div class="single-gallery mb-30">
+                        <div class="gallery-img" style="background-image: url({% static 'assets/img/gallery/gallery3.png' %});">
+                        </div>
+                        <div class="thumb-content-box">
+                            <div class="thumb-content">
+                                <h3>image 03</h3>
+                                <a href="{% static 'assets/img/gallery/gallery1.png' %}" class="menorie-icon"> <i class="ti-plus"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6">
+                    <div class="single-gallery mb-30">
+                        <div class="gallery-img" style="background-image: url({% static 'assets/img/gallery/gallery4.png' %});">
+                        </div>
+                        <div class="thumb-content-box">
+                            <div class="thumb-content">
+                                <h3>image 04</h3>
+                                <a href="{% static 'assets/img/gallery/gallery1.png' %}" class="menorie-icon"> <i class="ti-plus"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Gallery Area End -->
+    <!--? Gift Start -->
+    <section class="gift-area gift-padding fix" data-background="{% static 'assets/img/site/secao-confirmar-presenca.png' %}">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <div class="gift-caption text-center">
+                        <h2>O seu melhor presente</h2>
+                        <p>Será sua apresentação em nosso casamento</p>
+                        <a href="#" class="btn btn-whit">confirmar presença</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}
