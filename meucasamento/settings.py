@@ -13,23 +13,24 @@ import os
 
 import environ
 from pathlib import Path
-env = environ.Env()
-environ.Env.read_env()
+
+from config.config_util import ConfigUtil
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
+ConfigUtil.load_env()
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = str(env("SECRET_KEY"))
+SECRET_KEY = str(ConfigUtil.get_secret_key())
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = eval(env("DEBUG"))
+DEBUG = ConfigUtil.is_debug()
 
-ALLOWED_HOSTS = [str(env("DOMINIO"))]
+ALLOWED_HOSTS = [str(ConfigUtil.get_hosts())]
 
 
 # Application definition

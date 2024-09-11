@@ -6307,4 +6307,5 @@ b, sup, sub, u, del {
 }
 .card-img-top{
     max-height: 15rem;
+    min-height: 15rem;
 }

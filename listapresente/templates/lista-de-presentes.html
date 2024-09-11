@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+
+    <div class="container">
+        <h1>Lista de presentes.</h1>
+        <div class="row row-cols-1 row-cols-md-3">
+            {% for produto in produtos %}
+                <div class="col mb-4">
+                    <div class="card h-100" >
+                        <img src="{{ produto.imagem.url }}" class="card-img-top" alt="{{ produto.nome }}">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ produto.nome }}</h5>
+                            <p class="card-text">{{ produto.descricao }}</p>
+                            <h4>R$ {{ produto.preco }}</h4>
+                            <a href="/lista-de-presente/{{produto.id}}/presente" class="btn btn-primary">Presentear</a>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}

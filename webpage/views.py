@@ -15,10 +15,3 @@ def home(request):
     return HttpResponse(template.render(context, request))
 
 
-def lista_de_presentes(request):
-    template = loader.get_template("lista-de-presentes.html")
-    produtos = Produto.objects.all()
-    context = {
-        "produtos": produtos,
-    }
-    return HttpResponse(template.render(context, request))

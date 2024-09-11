@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+    <div class="container">
+        <hr class="featurette-divider">
+        <div class="row featurette">
+            <div class="col-md-5">
+                <img width="500" height="500" src="{{ produto.imagem.url }}" class="card-img-top"
+                     alt="{{ produto.nome }}">
+            </div>
+            <div class="col-md-7">
+                <h2 class="featurette-heading fw-normal lh-1">{{ produto.nome }}</h2>
+                <p class="lead">{{ produto.descricao }}</p>
+                <h3>R$ {{ produto.preco }}</h3>
+            </div>
+        </div>
+        <hr class="featurette-divider">
+        <a href="/lista-de-presente/{{produto.id}}/pagar" class="btn btn-primary">Presentear</a>
+    </div>
+{% endblock %}
