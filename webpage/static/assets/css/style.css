@@ -2388,6 +2388,7 @@ hr {
 }
 
 .section-tittle h2 {
+    font-family: "Roboto";
     color: #212121;
     font-size: 40px;
     font-weight: 700;
@@ -2695,7 +2696,7 @@ hr {
 }
 
 .slider-area .hero__caption span {
-    color: #fff;
+    color: #1f5022;
     text-transform: uppercase;
     font-size: 22px;
     font-weight: 700;
@@ -2738,7 +2739,7 @@ hr {
     font-size: 99px;
     font-weight: 700;
     margin-bottom: 14px;
-    color: #fff;
+    color: #5cac62;
     font-family: "Playfair Display", serif;
     line-height: 1.2;
     text-transform: capitalize;
@@ -6305,7 +6306,35 @@ b, sup, sub, u, del {
 .switch-wrap {
     margin-bottom: 10px
 }
-.card-img-top{
+
+.card-img-top {
     max-height: 15rem;
     min-height: 15rem;
+}
+
+
+.Our-story-area .story-caption .story-details {
+    padding-left: 5%;
+    padding-right: 5%;
+}
+
+.story-caption {
+    background-color: #fdfdfd;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+}
+
+.Our-story-area .story-caption.background-img {
+    width: 100%;
+    height: 583px;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.story2 {
+    border-radius: 6px;
+}
+
+html {
+    scroll-behavior: smooth;
 }

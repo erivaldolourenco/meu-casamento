@@ -1,9 +1,8 @@
-
 {% extends "base.html" %}
 {% load static %}
 
-{%block content %}
-<!--? Slider Area Start-->
+{% block content %}
+    <!--? Slider Area Start-->
     <div class="slider-area">
         <div class="slider-active">
             <!-- Single Slider -->
@@ -13,7 +12,8 @@
                         <div class="col-xl-8 col-lg-6 col-md-8 ">
                             <div class="hero__caption">
                                 <span data-animation="fadeInLeft" data-delay=".3s">{{ data_casamento }}</span>
-                                <h1 data-animation="fadeInLeft" data-delay=".5s" data-duration="2000ms">{{ noivo }}<strong> & </strong>
+                                <h1 data-animation="fadeInLeft" data-delay=".5s"
+                                    data-duration="2000ms">{{ noivo }}<strong> & </strong>
                                     {{ noiva }}</h1>
                                 <p data-animation="fadeInLeft" data-delay=".9s">Irão se casar</p>
                             </div>
@@ -28,7 +28,8 @@
                         <div class="col-xl-8 col-lg-6 col-md-8 ">
                             <div class="hero__caption">
                                 <span data-animation="fadeInLeft" data-delay=".3s">{{ data_casamento }}</span>
-                                <h1 data-animation="fadeInLeft" data-delay=".5s" data-duration="2000ms">{{ noivo }}<strong> & </strong>
+                                <h1 data-animation="fadeInLeft" data-delay=".5s"
+                                    data-duration="2000ms">{{ noivo }}<strong> & </strong>
                                     {{ noiva }}</h1>
                                 <p data-animation="fadeInLeft" data-delay=".9s">Irão se casar</p>
                             </div>
@@ -40,29 +41,35 @@
     </div>
     <!-- Slider Area End-->
     <!--? Our Story Start -->
-    <div class="Our-story-area story-padding">
+    <div id="nossa-historia" class="Our-story-area story-padding">
         <div class="container">
             <!-- Section Tittle -->
             <div class="row d-flex justify-content-center">
                 <div class="col-xl-7 col-lg-8">
                     <div class="section-tittle text-center mb-70">
                         <h2>Nossa História de Amor</h2>
-{#                        <img src="{% static 'assets/img/gallery/tittle_img.png' %}" alt="">#}
+                        {#                        <img src="{% static 'assets/img/gallery/tittle_img.png' %}" alt="">#}
                     </div>
                 </div>
             </div>
             <div class="row justify-content-center">
                 <div class="col-lg-5">
-                    <div class="story-caption background-img mb-40" style="background-image: url({% static 'assets/img/site/nossa-historia.jpg' %});">
+                    <div class="story-caption background-img mb-40">
                         <div class="story-details">
-                            <p>Proin at sapien ipsum. Aenean placerat, quam ac tempor congue, orci est luctus ex, ut vestibulum ipsum nisl eu nisi.</p>
-                            <p>Proin at sapien ipsum. Aenean placerat, quam ac tempor.</p>
+                            <p>Nos conhecemos na igreja apenas de vista, onde trocamos apenas olhares discretos. Um
+                                pouco mais de três anos depois, começamos a conversar pelo instagram. </p>
+                            <p> Nossas conversas iam além do comum; compartilhávamos nossas crenças, valores, sonhos até
+                                que resolvemos orar juntos. </p>
+                            <p> Esses momentos de espiritualidade fortaleceram nosso vínculo e nos levaram a começar um
+                                relacionamento. </p>
+                            <p> Rapidamente percebemos que queríamos construir um futuro juntos e, em pouco tempo, ele
+                                me pediu em casamento, selando assim nosso amor e compromisso para toda a vida.</p>
                         </div>
                     </div>
                 </div>
                 <div class="col-lg-5">
                     <div class="story-img">
-                        <img  class="story2" src="{% static 'assets/img/site/erivaldo-evelyn.jpeg' %}" alt="">
+                        <img class="story2" src="{% static 'assets/img/site/erivaldo-evelyn.jpeg' %}" alt="">
                     </div>
                 </div>
             </div>
@@ -70,15 +77,20 @@
     </div>
     <!-- Our Story End -->
     <!--? Services Start -->
-    <section class="pricing-card-area section-padding30 section-bg" data-background="assets/img/gallery/section_bg1.png">
+    <section id="info-casamento" class="pricing-card-area section-padding30 section-bg"
+             data-background="assets/img/gallery/section_bg1.png">
         <div class="container">
-                <!-- Section Tittle -->
-                <div class="row d-flex justify-content-center">
+            <!-- Section Tittle -->
+            <div class="row d-flex justify-content-center">
                 <div class="col-lg-8">
                     <div class="section-tittle text-center mb-70">
                         <h2>Informações sobre o casamento</h2>
-{#                        <img src="{% static 'assets/img/gallery/tittle_img.png' %}" alt="">#}
-                        <p>Quisque nec facilisis sem. In at commodo velit. Aliquam tempor volutpat laoreet. Quisque non tellus eleifend arcu gravida aliquam. Vivamus quis consequat nisl</p>
+                        {#                        <img src="{% static 'assets/img/gallery/tittle_img.png' %}" alt="">#}
+                        <p>
+                            No dia 7 de dezembro de 2024, às 15h, teremos uma cerimônia seguida de festa no Rey House
+                            Eventos, que fica na Avenida José Manhães, número 605, no bairro Santos Dumont, em Maceió,
+                            Alagoas. Vai ser um momento especial, e gostaríamos muito que você estivesse lá com a
+                            gente!</p>
                     </div>
                 </div>
             </div>
@@ -93,15 +105,15 @@
                         <div class="card-bottom">
                             <ul>
                                 <li><i class="fas fa-calendar-alt"></i>07 Dezembro de 2024</li>
-                                <li><i class="far fa-clock"></i>15:30</li>
+                                <li><i class="far fa-clock"></i>15:00</li>
                                 <li><i class="fas fa-map-marker-alt"></i>Rey House Eventos</li>
                                 <li>Avenida José Manhães nº 605, Santos Dumont, Maceió, Alagoas</li>
                                 <li><i class="far fa-map"></i> Confira o mapa</li>
                             </ul>
                         </div>
-{#                        <div class="card-buttons mt-30">#}
-{#                            <a href="#" class="btn card-btn1">Get Started</a>#}
-{#                        </div>#}
+                        {#                        <div class="card-buttons mt-30">#}
+                        {#                            <a href="#" class="btn card-btn1">Get Started</a>#}
+                        {#                        </div>#}
                     </div>
                 </div>
             </div>
@@ -113,7 +125,7 @@
         <div class="container">
             <div class="row justify-content-center">
                 <div class="col-lg-12 col-md-12">
-                    <div class="count-down-wrapper" >
+                    <div class="count-down-wrapper">
                         <div class="row justify-content-between">
                             <div class="col-lg-3 col-md-6 col-sm-6">
                                 <!-- Counter Up -->
@@ -151,53 +163,61 @@
     </div>
     <!-- Count Down End -->
     <!--? Gallery Area Start -->
-    <div class="gallery-area section-padding4">
+    <div id="galeria" class="gallery-area section-padding4">
         <div class="container">
             <div class="row">
                 <div class="col-lg-4 col-md-6">
                     <div class="single-gallery mb-30">
-                        <div class="gallery-img" style="background-image: url({% static 'assets/img/gallery/gallery1.png' %});">
+                        <div class="gallery-img"
+                             style="background-image: url({% static 'assets/img/gallery/gallery1.png' %});">
                         </div>
                         <div class="thumb-content-box">
                             <div class="thumb-content">
                                 <h3>image 01</h3>
-                                <a href="{% static 'assets/img/gallery/gallery1.png' %}" class="menorie-icon"> <i class="ti-plus"></i></a>
+                                <a href="{% static 'assets/img/gallery/gallery1.png' %}" class="menorie-icon"> <i
+                                        class="ti-plus"></i></a>
                             </div>
                         </div>
                     </div>
                 </div>
                 <div class="col-lg-8 col-md-6">
                     <div class="single-gallery mb-30">
-                        <div class="gallery-img" style="background-image: url({% static 'assets/img/gallery/gallery2.png' %});">
+                        <div class="gallery-img"
+                             style="background-image: url({% static 'assets/img/gallery/gallery2.png' %});">
                         </div>
                         <div class="thumb-content-box">
                             <div class="thumb-content">
                                 <h3>image 02</h3>
-                                <a href="{% static 'assets/img/gallery/gallery1.png' %}" class="menorie-icon"> <i class="ti-plus"></i></a>
+                                <a href="{% static 'assets/img/gallery/gallery1.png' %}" class="menorie-icon"> <i
+                                        class="ti-plus"></i></a>
                             </div>
                         </div>
                     </div>
                 </div>
                 <div class="col-lg-8 col-md-6">
                     <div class="single-gallery mb-30">
-                        <div class="gallery-img" style="background-image: url({% static 'assets/img/gallery/gallery3.png' %});">
+                        <div class="gallery-img"
+                             style="background-image: url({% static 'assets/img/gallery/gallery3.png' %});">
                         </div>
                         <div class="thumb-content-box">
                             <div class="thumb-content">
                                 <h3>image 03</h3>
-                                <a href="{% static 'assets/img/gallery/gallery1.png' %}" class="menorie-icon"> <i class="ti-plus"></i></a>
+                                <a href="{% static 'assets/img/gallery/gallery1.png' %}" class="menorie-icon"> <i
+                                        class="ti-plus"></i></a>
                             </div>
                         </div>
                     </div>
                 </div>
                 <div class="col-lg-4 col-md-6">
                     <div class="single-gallery mb-30">
-                        <div class="gallery-img" style="background-image: url({% static 'assets/img/gallery/gallery4.png' %});">
+                        <div class="gallery-img"
+                             style="background-image: url({% static 'assets/img/gallery/gallery4.png' %});">
                         </div>
                         <div class="thumb-content-box">
                             <div class="thumb-content">
                                 <h3>image 04</h3>
-                                <a href="{% static 'assets/img/gallery/gallery1.png' %}" class="menorie-icon"> <i class="ti-plus"></i></a>
+                                <a href="{% static 'assets/img/gallery/gallery1.png' %}" class="menorie-icon"> <i
+                                        class="ti-plus"></i></a>
                             </div>
                         </div>
                     </div>
@@ -207,7 +227,8 @@
     </div>
     <!-- Gallery Area End -->
     <!--? Gift Start -->
-    <section class="gift-area gift-padding fix" data-background="{% static 'assets/img/site/secao-confirmar-presenca.png' %}">
+    <section id="presenca" class="gift-area gift-padding fix"
+             data-background="{% static 'assets/img/site/secao-confirmar-presenca.png' %}">
         <div class="container">
             <div class="row">
                 <div class="col-12">
