@@ -14,4 +14,8 @@ def home(request):
     }
     return HttpResponse(template.render(context, request))
 
-
+def manutencao(request):
+    template = loader.get_template("manutencao.html")
+    context = {
+    }
+    return HttpResponse(template.render(context, request))
