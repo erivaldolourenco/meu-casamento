@@ -1,8 +1,8 @@
 import os
 import environ
 from pathlib import Path
-BASE_DIR = Path(__file__).resolve().parent.parent
 
+BASE_DIR = Path(__file__).resolve().parent.parent
 
 
 class ConfigUtil:
@@ -30,3 +30,31 @@ class ConfigUtil:
     @staticmethod
     def get_token_mercadopago():
         return ConfigUtil.env('TOKEN_MERCADO_PAGO', default='xxxxxxxxxxxxxxxxxx')
+
+    @staticmethod
+    def get_token_telegram():
+        return ConfigUtil.env('BOT_TELEGRAM_TOKEN', default='xxxxxxxxxxxxxxxxxx')
+
+    @staticmethod
+    def get_pessoa_telegram():
+        return ConfigUtil.env('PESSOAL_TELEGRAM_ID', default='xxxxxxxxxxxxxxxxxx')
+
+    @staticmethod
+    def get_db_name():
+        return ConfigUtil.env('DATABASE_NAME', default='database')
+
+    @staticmethod
+    def get_db_user():
+        return ConfigUtil.env('DATABASE_USER', default='user')
+
+    @staticmethod
+    def get_db_password():
+        return ConfigUtil.env('DATABASE_PASSWORD', default='password')
+
+    @staticmethod
+    def get_db_host():
+        return ConfigUtil.env('DATABASE_HOST', default='localhost')
+
+    @staticmethod
+    def get_port():
+        return ConfigUtil.env('DATABASE_PORT', default='3306')

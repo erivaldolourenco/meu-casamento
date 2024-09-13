@@ -14,7 +14,7 @@
                             <h5 class="card-title">{{ produto.nome }}</h5>
                             <p class="card-text">{{ produto.descricao }}</p>
                             <h4>R$ {{ produto.preco }}</h4>
-                            <a href="/lista-de-presente/{{produto.id}}/presente" class="btn btn-primary">Presentear</a>
+                            <a href="{% url 'presente'  id_presente=produto.id %}" class="btn btn-primary">Presentear</a>
                         </div>
                     </div>
                 </div>

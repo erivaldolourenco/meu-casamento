@@ -235,7 +235,40 @@
                     <div class="gift-caption text-center">
                         <h2>O seu melhor presente</h2>
                         <p>Será sua apresentação em nosso casamento</p>
-                        <a href="#" class="btn btn-whit">confirmar presença</a>
+                        <button type="button" class="btn btn-whit" data-toggle="modal" data-target="#presencaModal">
+                            confirmar presença
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Button trigger modal -->
+
+
+        <!-- Modal -->
+        <div class="modal fade" id="presencaModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Confirmar Presença</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form action="{% url 'presenca' %}" method="post">{% csrf_token %}
+                            <div class="modal-body">
+
+                                <div class="form-group">
+                                    <label for="nome-convidado" class="col-form-label">Nome:</label>
+                                    <input type="text" class="form-control" id="nome-convidado"  name="nome-convidado">
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="submit" class="btn btn-primary">Confirmar</button>
+                            </div>
+                        </form>
                     </div>
                 </div>
             </div>

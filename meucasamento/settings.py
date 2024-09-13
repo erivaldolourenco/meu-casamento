@@ -32,7 +32,6 @@ DEBUG = ConfigUtil.is_debug()
 
 ALLOWED_HOSTS = [str(ConfigUtil.get_hosts())]
 
-
 # Application definition
 
 INSTALLED_APPS = [
@@ -44,6 +43,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'webpage',
     'listapresente',
+    'convidados',
 ]
 
 MIDDLEWARE = [
@@ -76,17 +76,20 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'meucasamento.wsgi.application'
 
-
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
+
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': str(ConfigUtil.get_db_name()),
+        'USER': str(ConfigUtil.get_db_user()),
+        'PASSWORD': str(ConfigUtil.get_db_password()),
+        'HOST': str(ConfigUtil.get_db_host()),
+        'PORT': str(ConfigUtil.get_port()),
     }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/5.0/ref/settings/#auth-password-validators
@@ -106,7 +109,6 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
 # Internationalization
 # https://docs.djangoproject.com/en/5.0/topics/i18n/
 
@@ -117,7 +119,6 @@ TIME_ZONE = 'America/Maceio'
 USE_I18N = True
 
 USE_TZ = True
-
 
 USE_L10N = True
 
@@ -132,4 +133,4 @@ STATIC_URL = 'static/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 MEDIA_URL = '/media/'
-MEDIA_ROOT = os.path.join(BASE_DIR,'media')
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')

@@ -15,7 +15,18 @@
                 <h3>R$ {{ produto.preco }}</h3>
             </div>
         </div>
-        <hr class="featurette-divider">
-        <a href="/lista-de-presente/{{produto.id}}/pagar" class="btn btn-primary">Presentear</a>
+        <div>
+            <form action="{% url 'pagar'  id_presente=produto.id %}" method="post"
+                  enctype="multipart/form-data">{% csrf_token %}
+                {{ comprador_form }}
+                <hr class="featurette-divider">
+                <input type="submit" class="btn btn-primary" value="Presentear">
+
+            </form>
+            <a href="{% url 'lista_de_presente' %}">
+                    <button class="btn btn-primary">Voltar</button>
+                </a>
+        </div>
+
     </div>
 {% endblock %}

@@ -20,7 +20,8 @@ from django.conf.urls.static import static
 from meucasamento import settings
 
 urlpatterns = [
-                  path('admin/', admin.site.urls),
+                  path('zordon/', admin.site.urls),
                   path('', include('webpage.urls')),
-                  path('lista-de-presente', include('listapresente.urls')),
+                  path('lista-de-presente/', include('listapresente.urls')),
+                  path('convidados/', include('convidados.urls')),
               ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
