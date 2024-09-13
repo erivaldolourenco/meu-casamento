@@ -58,3 +58,7 @@ class ConfigUtil:
     @staticmethod
     def get_port():
         return ConfigUtil.env('DATABASE_PORT', default='3306')
+
+    @staticmethod
+    def get_csrf_trusted():
+        return ConfigUtil.env('CSRF_TRUSTED_ORIGINS', default='3306')
