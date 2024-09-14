@@ -27,8 +27,8 @@ def obter_link_produto(nome_comprador, sobrenome_comprador, email_comprador, tel
         ],
         "back_urls": {
             "success": dominio + "/lista-de-presente/pagamento-sucesso",
-            "failure": dominio + "lista-de-presente/pagamento-erro",
-            "pending": dominio + "lista-de-presente/pagamento-erro",
+            "failure": dominio + "/lista-de-presente/pagamento-erro",
+            "pending": dominio + "/lista-de-presente/pagamento-erro",
         },
         "payer": {
             "name": nome_comprador,
