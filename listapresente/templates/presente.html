@@ -10,23 +10,56 @@
                      alt="{{ produto.nome }}">
             </div>
             <div class="col-md-7">
-                <h2 class="featurette-heading fw-normal lh-1">{{ produto.nome }}</h2>
-                <p class="lead">{{ produto.descricao }}</p>
-                <h3>R$ {{ produto.preco }}</h3>
+                <h3 class="featurette-heading fw-normal lh-1">{{ produto.nome }}</h3>
+                <h2 style="margin-top: 5%; ">R$ {{ produto.preco }}</h2>
+                <span>Restam {{ produto.quantidade }} Un</span>
             </div>
         </div>
         <div>
-            <form action="{% url 'pagar'  id_presente=produto.id %}" method="post"
+            <p class="lead">{{ produto.descricao }}</p>
+        </div>
+        <div>
+            <form action="{% url 'pagamento'  id_presente=produto.id %}" method="post"
                   enctype="multipart/form-data">{% csrf_token %}
-                {{ comprador_form }}
-                <hr class="featurette-divider">
-                <input type="submit" class="btn btn-primary" value="Presentear">
-
-            </form>
-            <a href="{% url 'lista_de_presente' %}">
-                    <button class="btn btn-primary">Voltar</button>
+                <div class="form-row">
+                    <div class="col-md-6 mb-3">
+                        <label for="validationDefault01">{{ comprador_form.nome.label }}</label>
+                        {{ comprador_form.nome }}
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label for="validationDefault02"> {{ comprador_form.sobrenome.label }}</label>
+                        {{ comprador_form.sobrenome }}
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="col-md-4 mb-3">
+                        <label for="validationDefault03"> {{ comprador_form.cpf.label }}</label>
+                        {{ comprador_form.cpf }}
+                    </div>
+                    <div class="col-md-4 mb-3">
+                        <label for="validationDefault05">{{ comprador_form.email.label }}</label>
+                        {{ comprador_form.email }}
+                    </div>
+                    <div class="col-md-4 mb-3">
+                        <label for="validationDefault05">Telefone</label>
+                        {{ comprador_form.telefone }}
+                    </div>
+                </div>
+                <a href="{% url 'lista_de_presente' %}" class="btn btn-primary">
+                    Voltar
                 </a>
+                <button class="btn btn-primary" type="submit">Presentear</button>
+            </form>
+
+
         </div>
 
     </div>
 {% endblock %}
+{% block scriptjs %}
+    <script>
+        Inputmask({mask: '999.999.999-99'}).mask("#id_cpf");
+        Inputmask({mask: '(99)99999-9999'}).mask("#id_telefone");
+    </script>
+{% endblock %}
+
