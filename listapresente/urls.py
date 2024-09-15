@@ -8,4 +8,5 @@ urlpatterns = [
     path('<int:id_presente>/pagamento', views.pagamento, name='pagamento'),
     path('pagamento-sucesso', views.pagamento_sucesso, name='pagamento_sucesso'),
     path('pagamento-erro', views.pagamento_erro, name='pagamento_erro'),
+    path('pagamento-pendente', views.pagamento_pendente, name='pagamento_pendente'),
 ]

@@ -8,10 +8,11 @@ sdk = mercadopago.SDK(ConfigUtil.get_token_mercadopago())
 
 def obter_link_produto(nome_comprador, sobrenome_comprador, email_comprador, telefone_comprador, codigo_telefone,
                        cpf_comprador, nome_produto, descricao_produto, imagem_url, valor_produto, dominio):
-    request_options = mercadopago.config.RequestOptions()
-    request_options.custom_headers = {
-        'x-idempotency-key': '<SOME_UNIQUE_VALUE>'
-    }
+
+    # request_options = mercadopago.config.RequestOptions()
+    # request_options.custom_headers = {
+    #     'x-idempotency-key': '<SOME_UNIQUE_VALUE>'
+    # }
 
     payment_data = {
         "items": [
@@ -25,11 +26,6 @@ def obter_link_produto(nome_comprador, sobrenome_comprador, email_comprador, tel
                 "unit_price": float(valor_produto),
             }
         ],
-        "back_urls": {
-            "success": dominio + "/lista-de-presente/pagamento-sucesso",
-            "failure": dominio + "/lista-de-presente/pagamento-erro",
-            "pending": dominio + "/lista-de-presente/pagamento-erro",
-        },
         "payer": {
             "name": nome_comprador,
             "surname": sobrenome_comprador,
@@ -42,12 +38,22 @@ def obter_link_produto(nome_comprador, sobrenome_comprador, email_comprador, tel
                 "type": "CPF",
                 "number": cpf_comprador,
             },
-        }
+        },
+        "back_urls": {
+            "success": dominio + "/lista-de-presente/pagamento-sucesso",
+            "failure": dominio + "/lista-de-presente/pagamento-erro",
+            "pending": dominio + "/lista-de-presente/pagamento-pendente",
+        },
+        "auto_return": "all",
+        "statement_descriptor": "Presente de Casamento"
     }
-    result = sdk.preference().create(payment_data, request_options)
-    return result["response"]["init_point"]
+    preference_response = sdk.preference().create(payment_data)
+    return preference_response["response"]["init_point"]
 
 
 def obter_preferencia(id):
     preference_response = sdk.preference().get(id)
     return preference_response["response"]
+
+def obter_pagamento(id):
+    return sdk.payment().get(id)
