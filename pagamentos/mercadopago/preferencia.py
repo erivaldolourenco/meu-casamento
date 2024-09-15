@@ -42,7 +42,7 @@ def obter_link_produto(nome_comprador, sobrenome_comprador, email_comprador, tel
         "back_urls": {
             "success": dominio + "/lista-de-presente/pagamento-sucesso",
             "failure": dominio + "/lista-de-presente/pagamento-erro",
-            "pending": dominio + "/lista-de-presente/pagamento-pendente",
+            "pending": dominio + "/lista-de-presente/pagamento-sucesso",
         },
         "auto_return": "all",
         "statement_descriptor": "Presente de Casamento"

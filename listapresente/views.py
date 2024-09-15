@@ -49,21 +49,29 @@ def pagamento(request, id_presente):
 
 
 def pagamento_sucesso(request):
-    collection_id = request.GET.get('collection_id')
-    collection_status = request.GET.get('collection_status')
     payment_id = request.GET.get('payment_id')
     status = request.GET.get('status')
-    external_reference = request.GET.get('external_reference')
-    payment_type = request.GET.get('payment_type')
-    merchant_order_id = request.GET.get('merchant_order_id')
-    site_id = request.GET.get('site_id')
-    processing_mode = request.GET.get('processing_mode')
-    merchant_account_id = request.GET.get('merchant_account_id')
     preference_id = request.GET.get('preference_id')
     preference = obter_preferencia(preference_id)
+    produto = preference['items'][0]
     comprador = preference['payer']
 
-    template = loader.get_template("pagamento_sucesso.html")
+    if not ConvidadoPresente.objects.filter(id_pagamento=payment_id).exists():
+        convidado_presente = ConvidadoPresente(
+            nome_convidado=comprador['name'],
+            sobrenome_convidado= comprador['surname'],
+            id_pagamento=payment_id,
+            email=comprador['email'],
+            produto_nome=produto['title'],
+            produto_descricao=produto['description'],
+            status=status
+        )
+        convidado_presente.save()
+
+    if not status == 'pending':
+        template = loader.get_template("pagamento_sucesso.html")
+    else:
+        template = loader.get_template("pagamento_pendente.html")
     context = {
         "nome": comprador['name'],
         "sobrenome": comprador['surname']
@@ -76,10 +84,6 @@ def pagamento_erro(request):
     context = {}
     return HttpResponse(template.render(context, request))
 
-def pagamento_pendente(request):
-    template = loader.get_template("pagamento_pendente.html")
-    context = {}
-    return HttpResponse(template.render(context, request))
 
 
 @csrf_exempt
@@ -100,46 +104,40 @@ def notificacao_mercadopago(request):
             id_pagamento = data.get('data', {}).get('id')
 
             if not id_pagamento:
-                # Se não houver id do pagamento, retorna erro
                 return HttpResponse("ID do pagamento não encontrado", status=400)
 
-            # Obtém detalhes do pagamento usando a função 'obter_pagamento'
-            pagamento = obter_pagamento(id_pagamento)
-            if not pagamento:
-                # Se não conseguir obter o pagamento, retorna erro
+            pagamento_response = obter_pagamento(id_pagamento)
+            if not pagamento_response.get('response'):
                 return HttpResponse("Pagamento não encontrado", status=404)
+
+            pagamento = pagamento_response.get('response')
+
 
             if pagamento.get('status') == 'approved':
                 pagador = pagamento.get('payer', {})
                 detalhes = pagamento.get('transaction_details', {})
-                data_criacao = datetime.strptime(pagamento.get('date_created', ''), "%Y-%m-%dT%H:%M:%S.%fZ")
+                data_criacao = datetime.strptime(pagamento.get('date_created', '').replace('Z', ''), "%Y-%m-%dT%H:%M:%S.%f%z")
                 data_compra = data_criacao.date()
 
-                convidado_presente = ConvidadoPresente(
-                    cpf=pagador.get('identification', {}).get('number', 'Não informado'),
-                    email=pagador.get('email', 'Não informado'),
-                    preco=detalhes.get('net_received_amount', 0),
-                    presente=pagamento.get('description', 'Descrição não disponível'),
-                    data_compra=data_compra,
-                )
+                convidado_presente = ConvidadoPresente.objects.get(id_pagamento=id_pagamento)
+                convidado_presente.valor_recebido = detalhes.get('net_received_amount', 0)
+                convidado_presente.data_compra = data_compra
+                convidado_presente.status = pagamento.get('status')
                 convidado_presente.save()
 
-                # Envia mensagem para o Telegram
                 mensagem = f"Recebemos um presente de: {pagador.get('email', 'Desconhecido')} no valor de: {detalhes.get('net_received_amount', '0')}"
                 enviar_telegram(mensagem)
 
                 return HttpResponse(status=200)
             else:
-                # Se o pagamento não for aprovado
-                enviar_telegram(f"Pagamento não aprovado. ID do pagamento: {id_pagamento}")
+                print(f"Pagamento não aprovado, status: {pagamento.get('status')}. ID do pagamento: {id_pagamento}")
                 return HttpResponse(status=400)
 
         except json.JSONDecodeError:
-            # Se o JSON estiver mal formatado
             return HttpResponse("Erro ao processar JSON", status=400)
 
         except Exception as e:
-            # Captura qualquer outra exceção e loga o erro
+            print(str(e))
             enviar_telegram(f"Erro ao processar notificação: {str(e)}")
             return HttpResponse("Erro interno do servidor", status=500)
 
