@@ -119,11 +119,20 @@ def notificacao_mercadopago(request):
                 data_criacao = datetime.strptime(pagamento.get('date_created', '').replace('Z', ''), "%Y-%m-%dT%H:%M:%S.%f%z")
                 data_compra = data_criacao.date()
 
-                convidado_presente = ConvidadoPresente.objects.get(id_pagamento=id_pagamento)
-                convidado_presente.valor_recebido = detalhes.get('net_received_amount', 0)
-                convidado_presente.data_compra = data_compra
-                convidado_presente.status = pagamento.get('status')
-                convidado_presente.save()
+                if ConvidadoPresente.objects.filter(id_pagamento=id_pagamento).exists():
+                    convidado_presente = ConvidadoPresente.objects.get(id_pagamento=id_pagamento)
+                    convidado_presente.valor_recebido = detalhes.get('net_received_amount', 0)
+                    convidado_presente.data_compra = data_compra
+                    convidado_presente.status = pagamento.get('status')
+                    convidado_presente.save()
+                else:
+                    convidado_presente = ConvidadoPresente(
+                        id_pagamento=id_pagamento,
+                        valor_recebido=detalhes.get('net_received_amount', 0),
+                        data_compra=data_compra,
+                        status=pagamento.get('status')
+                    )
+                    convidado_presente.save()
 
                 mensagem = f"Recebemos um presente de: {pagador.get('email', 'Desconhecido')} no valor de: {detalhes.get('net_received_amount', '0')}"
                 enviar_telegram(mensagem)
