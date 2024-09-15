@@ -29,4 +29,4 @@ class ConvidadoPresente(models.Model):
     status = models.CharField(max_length=20, blank=True, null=True)
 
     def __str__(self):
-        return self.nome_convidado
+        return self.id_pagamento

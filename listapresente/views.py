@@ -127,6 +127,7 @@ def notificacao_mercadopago(request):
                     convidado_presente.save()
                 else:
                     convidado_presente = ConvidadoPresente(
+                        nome_convidado='Foi criado notificacao',
                         id_pagamento=id_pagamento,
                         valor_recebido=detalhes.get('net_received_amount', 0),
                         data_compra=data_compra,
