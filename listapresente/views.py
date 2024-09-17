@@ -12,6 +12,7 @@ from listapresente.forms import CompradorForm
 from listapresente.models import Produto
 from pagamentos.mercadopago.preferencia import obter_link_produto, obter_preferencia, obter_pagamento
 
+
 def lista_de_presentes(request):
     template = loader.get_template("lista-de-presentes.html")
     produtos = Produto.objects.all()
@@ -37,13 +38,11 @@ def pagamento(request, id_presente):
         comprador_form = CompradorForm(request.POST)
         if comprador_form.is_valid():
             comprador = comprador_form.save(commit=False)
-            cpf_comprador = comprador.cpf.replace('.', '').replace('-', '')
             codigo = re.search(r'\((\d{2})\)', comprador.telefone).group(1)
             telefone = re.search(r'\)\s*(\d{5}-\d{4})', comprador.telefone).group(1)
             produto = Produto.objects.get(id=id_presente)
             url = obter_link_produto(comprador.nome, comprador.sobrenome, comprador.email, telefone, codigo,
-                                     cpf_comprador, produto.nome,
-                                     produto.descricao, request.build_absolute_uri(produto.imagem.url),
+                                     produto.id, produto.nome, produto.descricao, request.build_absolute_uri(produto.imagem.url),
                                      produto.preco, request.get_host())
             return HttpResponseRedirect(url)
 
@@ -56,16 +55,27 @@ def pagamento_sucesso(request):
     produto = preference['items'][0]
     comprador = preference['payer']
 
-    if not ConvidadoPresente.objects.filter(id_pagamento=payment_id).exists():
-        convidado_presente = ConvidadoPresente(
-            nome_convidado=comprador['name'],
-            sobrenome_convidado= comprador['surname'],
-            id_pagamento=payment_id,
-            email=comprador['email'],
-            produto_nome=produto['title'],
-            produto_descricao=produto['description'],
-            status=status
-        )
+    convidado_presente, criado = ConvidadoPresente.objects.get_or_create(
+        id_pagamento=payment_id,
+        defaults={
+            'nome_convidado': comprador['name'],
+            'id_preferencia': preference_id,
+            'sobrenome_convidado': comprador['surname'],
+            'email': comprador['email'],
+            'produto_nome': produto['title'],
+            'produto_descricao': produto['description'],
+            'status': status
+        }
+    )
+
+    if not criado:
+        convidado_presente.nome_convidado = comprador['name']
+        convidado_presente.sobrenome_convidado = comprador['surname']
+        convidado_presente.email = comprador['email']
+        convidado_presente.produto_nome = produto['title']
+        convidado_presente.produto_descricao = produto['description']
+        convidado_presente.status = status
+        convidado_presente.id_preferencia = preference_id
         convidado_presente.save()
 
     if not status == 'pending':
@@ -85,22 +95,11 @@ def pagamento_erro(request):
     return HttpResponse(template.render(context, request))
 
 
-
 @csrf_exempt
 def notificacao_mercadopago(request):
     if request.method == 'POST':
         try:
-            # Converte o corpo da requisição em JSON
             data = json.loads(request.body)
-
-            # Extrai os dados da notificação
-            pagamento_id = data.get('id')
-            live_mode = data.get('live_mode')
-            tipo = data.get('type')
-            data_criacao_str = data.get('date_created')
-            usuario_id = data.get('user_id')
-            versao_api = data.get('api_version')
-            acao = data.get('action')
             id_pagamento = data.get('data', {}).get('id')
 
             if not id_pagamento:
@@ -112,30 +111,46 @@ def notificacao_mercadopago(request):
 
             pagamento = pagamento_response.get('response')
 
-
             if pagamento.get('status') == 'approved':
                 pagador = pagamento.get('payer', {})
                 detalhes = pagamento.get('transaction_details', {})
-                data_criacao = datetime.strptime(pagamento.get('date_created', '').replace('Z', ''), "%Y-%m-%dT%H:%M:%S.%f%z")
-                data_compra = data_criacao.date()
+                produto = Produto.objects.get(id=pagamento['additional_info']['items'][0]['id'])
+                if produto.quantidade > 0:
+                    produto.quantidade -= 1
+                    produto.save()
+                else:
+                    raise ValueError('Estoque insuficiente para o produto.')
 
-                if ConvidadoPresente.objects.filter(id_pagamento=id_pagamento).exists():
-                    convidado_presente = ConvidadoPresente.objects.get(id_pagamento=id_pagamento)
+                data_criacao = datetime.strptime(pagamento.get('date_created', '').replace('Z', ''),
+                                                 "%Y-%m-%dT%H:%M:%S.%f%z")
+                data_compra = data_criacao.date()
+                telefone = pagamento['additional_info']['payer']['phone']
+                cod_telefone = str(telefone['area_code']) + str(telefone['number']).replace("-", "")
+
+                convidado_presente, criado = ConvidadoPresente.objects.get_or_create(
+                    id_pagamento=id_pagamento,
+                    defaults={
+                        'nome_convidado': pagamento['additional_info']['payer']['first_name'],
+                        'sobrenome_convidado': pagamento['additional_info']['payer']['last_name'],
+                        'email': pagamento['additional_info']['payer']['last_name'],
+                        'produto_nome': produto.nome,
+                        'produto_descricao': produto.descricao,
+                        'status': pagamento['status'],
+                        'valor_recebido': detalhes.get('net_received_amount', 0),
+                        'data_compra': data_compra,
+                        'telefone': cod_telefone
+                    }
+                )
+
+                if not criado:
                     convidado_presente.valor_recebido = detalhes.get('net_received_amount', 0)
                     convidado_presente.data_compra = data_compra
                     convidado_presente.status = pagamento.get('status')
-                    convidado_presente.save()
-                else:
-                    convidado_presente = ConvidadoPresente(
-                        nome_convidado='Foi criado notificacao',
-                        id_pagamento=id_pagamento,
-                        valor_recebido=detalhes.get('net_received_amount', 0),
-                        data_compra=data_compra,
-                        status=pagamento.get('status')
-                    )
+                    convidado_presente.telefone = cod_telefone
                     convidado_presente.save()
 
-                mensagem = f"Recebemos um presente de: {pagador.get('email', 'Desconhecido')} no valor de: {detalhes.get('net_received_amount', '0')}"
+                mensagem = (f"🤑💰 <b>{convidado_presente.nome_convidado} {convidado_presente.sobrenome_convidado}</b>"
+                            f" lhe presenteou com um <u>{produto.nome}</u>, no valor de:<b> R$ {detalhes.get('net_received_amount', '0')}</b>💰🤑")
                 enviar_telegram(mensagem)
 
                 return HttpResponse(status=200)
@@ -148,8 +163,5 @@ def notificacao_mercadopago(request):
 
         except Exception as e:
             print(str(e))
-            enviar_telegram(f"Erro ao processar notificação: {str(e)}")
             return HttpResponse("Erro interno do servidor", status=500)
-
-    # Se o método HTTP não for POST
     return HttpResponse("Método não permitido", status=405)

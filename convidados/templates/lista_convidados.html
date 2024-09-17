@@ -1,0 +1,61 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>Lista de convidados</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        {% include "meta-tags.html" %}
+        {#    <link rel="manifest" href="site.webmanifest">#}
+        <link rel="shortcut icon" type="image/x-icon" href="{% static 'assets/img/site/icon.ico' %}">
+
+        <!-- CSS here -->
+        <link rel="stylesheet" href="{% static 'assets/css/bootstrap.min.css' %}">
+        <link rel="stylesheet" href="{% static 'assets/css/owl.carousel.min.css' %}">
+        <link rel="stylesheet" href="{% static 'assets/css/flaticon.css' %}">
+        <link rel="stylesheet" href="{% static 'assets/css/slicknav.css' %}">
+        <link rel="stylesheet" href="{% static 'assets/css/animate.min.css' %}">
+        <link rel="stylesheet" href="{% static 'assets/css/magnific-popup.css' %}">
+        <link rel="stylesheet" href="{% static 'assets/css/fontawesome-all.min.css' %}">
+        <link rel="stylesheet" href="{% static 'assets/css/themify-icons.css' %}">
+        <link rel="stylesheet" href="{% static 'assets/css/slick.css' %}">
+        <link rel="stylesheet" href="{% static 'assets/css/nice-select.css' %}">
+        <link rel="stylesheet" href="{% static 'assets/css/style.css' %}">
+    </head>
+</head>
+<body>
+
+<div class="container">
+    <h1>Convidados</h1>
+    <table class="table">
+        <thead class="thead-dark">
+        <th cope="col">Nome</th>
+        <th cope="col">Confirmado?</th>
+        <th cope="col">Mesa</th>
+        {#        <th cope="col">Acompanhates</th>#}
+        </thead>
+        <tbody>
+        {% for convidado in convidados %}
+            <tr>
+                <td><h3>{{ convidado }}</h3></td>
+                <td> {% if convidado.presenca_confirmada %}Sim{% else %}Não{% endif %}</td>
+                <td>{{ convidado.mesa }}</td>
+                {#                <td>#}
+                {#                    <ul class="list-group">#}
+                {#                        {% for acompanhante in convidado.acompanhante_set.all %}#}
+                {#                            <li class="list-group-item">{{ acompanhante.nome }}</li>#}
+                {#                        {% empty %}#}
+                {#                            <li class="list-group-item">Não há acompanhantes</li>#}
+                {#                        {% endfor %}#}
+                {#                    </ul>#}
+                {#                </td>#}
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>
+</body>
+</html>

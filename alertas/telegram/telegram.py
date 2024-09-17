@@ -9,4 +9,4 @@ PESSOAL_TELEGRAM_ID = ConfigUtil.get_pessoa_telegram()
 bot = telepot.Bot(BOT_TELEGRAM_TOKEN)
 
 def enviar_telegram(mensagem):
-    bot.sendMessage(PESSOAL_TELEGRAM_ID, mensagem)
+    bot.sendMessage(PESSOAL_TELEGRAM_ID, mensagem, parse_mode="HTML")

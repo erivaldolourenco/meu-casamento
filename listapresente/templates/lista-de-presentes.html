@@ -20,7 +20,7 @@
                             <div class="d-flex justify-content-between align-items-center">
                                 <div class="btn-group">
                                     <a href="{% url 'presente'  id_presente=produto.id %}">
-                                        <button type="button" class="btn btn-sm btn-outline-secondary" {% if produto.quantidade == 1  %}disabled{% endif %}>Presentear
+                                        <button type="button" class="btn btn-sm btn-outline-secondary" {% if produto.quantidade == 0  %}disabled{% endif %}>Presentear
                                         </button>
                                     </a>
                                 </div>

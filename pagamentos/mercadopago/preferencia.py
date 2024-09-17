@@ -7,17 +7,12 @@ sdk = mercadopago.SDK(ConfigUtil.get_token_mercadopago())
 
 
 def obter_link_produto(nome_comprador, sobrenome_comprador, email_comprador, telefone_comprador, codigo_telefone,
-                       cpf_comprador, nome_produto, descricao_produto, imagem_url, valor_produto, dominio):
-
-    # request_options = mercadopago.config.RequestOptions()
-    # request_options.custom_headers = {
-    #     'x-idempotency-key': '<SOME_UNIQUE_VALUE>'
-    # }
+                       id_produto, nome_produto, descricao_produto, imagem_url, valor_produto, dominio):
 
     payment_data = {
         "items": [
             {
-                "id": "1234",
+                "id": id_produto,
                 "title": nome_produto,
                 "description": descricao_produto,
                 "picture_url": imagem_url,
@@ -33,10 +28,6 @@ def obter_link_produto(nome_comprador, sobrenome_comprador, email_comprador, tel
             "phone": {
                 "area_code": codigo_telefone,
                 "number": telefone_comprador,
-            },
-            "identification": {
-                "type": "CPF",
-                "number": cpf_comprador,
             },
         },
         "back_urls": {

@@ -33,10 +33,6 @@
                 </div>
                 <div class="form-row">
                     <div class="col-md-4 mb-3">
-                        <label for="validationDefault03"> {{ comprador_form.cpf.label }}</label>
-                        {{ comprador_form.cpf }}
-                    </div>
-                    <div class="col-md-4 mb-3">
                         <label for="validationDefault05">{{ comprador_form.email.label }}</label>
                         {{ comprador_form.email }}
                     </div>
@@ -56,7 +52,6 @@
 {% endblock %}
 {% block scriptjs %}
     <script>
-        Inputmask({mask: '999.999.999-99'}).mask("#id_cpf");
         Inputmask({mask: '(99)99999-9999'}).mask("#id_telefone");
     </script>
 {% endblock %}
