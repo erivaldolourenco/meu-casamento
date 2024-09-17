@@ -5,5 +5,5 @@ from convidados import views
 urlpatterns = [
     path('presenca', views.presenca, name='presenca'),
     path('lista', views.lista, name='lista'),
-    path('carregar', views.carregar, name='carregar'),
+    # path('carregar', views.carregar, name='carregar'),
 ]
