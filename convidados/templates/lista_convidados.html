@@ -35,7 +35,7 @@
         <th cope="col">Nome</th>
         <th cope="col">Confirmado?</th>
         <th cope="col">Mesa</th>
-        {#        <th cope="col">Acompanhates</th>#}
+        <th cope="col">Acompanhates</th>
         </thead>
         <tbody>
         {% for convidado in convidados %}
@@ -43,15 +43,15 @@
                 <td><h3>{{ convidado }}</h3></td>
                 <td> {% if convidado.presenca_confirmada %}Sim{% else %}Não{% endif %}</td>
                 <td>{{ convidado.mesa }}</td>
-                {#                <td>#}
-                {#                    <ul class="list-group">#}
-                {#                        {% for acompanhante in convidado.acompanhante_set.all %}#}
-                {#                            <li class="list-group-item">{{ acompanhante.nome }}</li>#}
-                {#                        {% empty %}#}
-                {#                            <li class="list-group-item">Não há acompanhantes</li>#}
-                {#                        {% endfor %}#}
-                {#                    </ul>#}
-                {#                </td>#}
+                <td>
+                    <ul class="list-group">
+                        {% for acompanhante in convidado.acompanhante_set.all %}
+                            <li class="list-group-item">{{ acompanhante.nome }}</li>
+                        {% empty %}
+                            <li class="list-group-item">-----</li>
+                        {% endfor %}
+                    </ul>
+                </td>
             </tr>
         {% endfor %}
         </tbody>

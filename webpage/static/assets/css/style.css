@@ -6346,3 +6346,23 @@ html {
     text-align: center;
     padding: 4%;
 }
+
+.delete-row {
+    color: red;
+}
+
+.btn-outline-info {
+    padding: 2%;
+    color: #17a2b8;
+    background-color: transparent;
+    background-image: none;
+    border-color: #17a2b8;
+    border: 1px solid;
+    border-radius: 8px;
+}
+
+.btn-danger {
+    padding: 11%;
+    border-top-right-radius: 8px;
+    border-bottom-right-radius: 8px;
+}

@@ -4,14 +4,15 @@
 {% block content %}
     <div class="container">
         {% if convidado %}
-            <h2 style="margin-top: 5%;"> Olá, <b>{{ convidado.nome }}</b>!, Sua presença foi confirmada, assim como a de
-                seus acompanhantes:
+            <h2 style="margin-top: 5%;"> Olá, <b>{{ convidado.nome }}</b>! Sua presença foi confirmada, assim como a de
+                seus acompanhantes.
 
-                {% for acompanhante in acompanhantes %}
-                    <b>{{ acompanhante }}</b> ,
-                {% endfor %}
-
-                caso algum deles não possa comparecer, pedimos que nos avise com antecedência.</h2>
+{#                {% for acompanhante in acompanhantes %}#}
+{#                    <b>{{ acompanhante.nome }}</b> ,#}
+{#                {% endfor %}#}
+{##}
+{#                caso algum deles não possa comparecer, pedimos que nos avise com antecedência.#}
+            </h2>
         {% else %}
             <h2 style="margin-top: 5%;"> Não existe nenhum convidado com o nome: <b>'{{ nome_convidado }}'</b>!</h2>
         {% endif %}

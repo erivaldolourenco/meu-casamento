@@ -6,7 +6,7 @@ from django.db import models
 class Convidado(models.Model):
     nome = models.CharField(max_length=100)
     mesa = models.CharField(max_length=100, blank=True, null=True)
-    presenca_confirmada = models.BooleanField(default=False)
+    presenca_confirmada = models.BooleanField(default=True)
     def __str__(self):
         return self.nome
 

@@ -215,7 +215,7 @@
                         </div>
                         <div class="thumb-content-box">
                             <div class="thumb-content">
-                                <h3>Erivaldo&Evelyn</h3>
+                                <h3>Erivaldo&Evelyn </h3>
                                 <a href="{% static 'assets/img/gallery/gallery1.png' %}" class="menorie-icon"> <i
                                         class="ti-plus"></i></a>
                             </div>
@@ -256,38 +256,72 @@
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
-                    <div class="modal-body">
-                        {#                        <form action="{% url 'presenca' %}" method="post">{% csrf_token %}#}
-                        {#                            <div class="modal-body">#}
-                        {##}
-                        {#                                <div class="form-group">#}
-                        {#                                    <label for="nome-convidado" class="col-form-label">Nome:</label>#}
-                        {#                                    <input type="text" class="form-control" id="nome-convidado"  name="nome-convidado">#}
-                        {#                                </div>#}
-                        {#                            </div>#}
-                        {#                            <div class="modal-footer">#}
-                        {#                                <button type="submit" class="btn btn-primary">Confirmar</button>#}
-                        {#                            </div>#}
-                        {#                        </form>#}
-                        <p>
-                            Olá!
-                            <br>
-                            <br>
-                            Esperamos que você esteja bem. Queremos informar que em breve estaremos pedindo para
-                            confirmar a sua presença no nosso casamento. Assim que tudo estiver organizado, enviaremos
-                            mais detalhes.
-                            <br>
-                            <br>
-                            Agradecemos desde já pela compreensão e estamos ansiosos para celebrar este momento especial
-                            com você!
-                            <br>
-                            <br>
-                            Com carinho,
-                            Erivaldo e Evelyn
-                        </p>
-                    </div>
+                    <form action="{% url 'presenca' %}" method="post">{% csrf_token %}
+                        <div class="modal-body">
+                            <h2>Convidado</h2>
+                            {{ form_convidado.as_p }}
+                            <div id="acompanhantes-section">
+                                <h4>Acompanhantes</h4>
+                                {{ formset_acompanhantes.management_form }}
+                                {% for form in formset_acompanhantes %}
+                                    <div id="form-acompanhante">
+
+                                        <div class="col-md-12 mb-12">
+                                            <label for="nome">{{ form.nome.label }}</label>
+
+                                            <div class="input-group">
+                                                {{ form.nome }}
+                                                <div class="input-group-append">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <hr>
+                                    </div>
+                                {% endfor %}
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="submit" class="btn btn-primary">Confirmar</button>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>
     </section>
+{% endblock %}
+
+{% block scriptjs %}
+    <script type="text/javascript">
+        $(function () {
+            $('#form-acompanhante').formset({
+                prefix: '{{ formset_acompanhantes.prefix }}',
+                addText: 'Adicionar acompanhante',
+                deleteText: 'Remover',
+                deleteContainerClass: 'input-group-append',
+                addCssClass: 'btn-outline-info',
+                deleteCssClass: 'btn-danger',
+            });
+        })
+
+        document.addEventListener('DOMContentLoaded', function () {
+            const temAcompanhanteCheckbox = document.getElementById('id_tem_acompanhante');
+            const acompanhantesSection = document.getElementById('acompanhantes-section');
+
+            // Função para habilitar/desabilitar acompanhantes
+            function toggleAcompanhantes() {
+                if (temAcompanhanteCheckbox.checked) {
+                    acompanhantesSection.style.display = 'block';  // Exibe os acompanhantes
+                } else {
+                    acompanhantesSection.style.display = 'none';  // Oculta os acompanhantes
+                }
+            }
+
+            // Chama a função ao carregar a página (para definir o estado inicial)
+            toggleAcompanhantes();
+
+            // Escuta mudanças no checkbox
+            temAcompanhanteCheckbox.addEventListener('change', toggleAcompanhantes);
+        });
+
+    </script>
 {% endblock %}
