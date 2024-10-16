@@ -32,26 +32,28 @@
     <h1>Convidados</h1>
     <table class="table">
         <thead class="thead-dark">
+        <th cope="col">#</th>
         <th cope="col">Nome</th>
         <th cope="col">Confirmado?</th>
         <th cope="col">Mesa</th>
-        <th cope="col">Acompanhates</th>
         </thead>
         <tbody>
-        {% for convidado in convidados %}
+        {% for convidado in convidados_detalhes %}
             <tr>
-                <td><h3>{{ convidado }}</h3></td>
-                <td> {% if convidado.presenca_confirmada %}Sim{% else %}Não{% endif %}</td>
+                <td><h3>{{ convidado.numero }}</h3></td>
+                <td><h3>{{ convidado.nome | title }}</h3></td>
+                <td> {{ convidado.confirmado }}</td>
                 <td>{{ convidado.mesa }}</td>
+            </tr>
+            <tr>
+                <td></td>
                 <td>
-                    <ul class="list-group">
-                        {% for acompanhante in convidado.acompanhante_set.all %}
-                            <li class="list-group-item">{{ acompanhante.nome }}</li>
-                        {% empty %}
-                            <li class="list-group-item">-----</li>
-                        {% endfor %}
-                    </ul>
+                    {% for acompanhante in convidado.acompanhantes %}
+                        <h4>{{ acompanhante.numero }} - {{ acompanhante.nome | title }}</h4>
+                    {% endfor %}
                 </td>
+                <td></td>
+                <td></td>
             </tr>
         {% endfor %}
         </tbody>

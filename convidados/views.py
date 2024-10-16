@@ -1,5 +1,4 @@
 from django.http import HttpResponse
-from django.shortcuts import render
 from django.template import loader
 
 from alertas.telegram.telegram import enviar_telegram
@@ -32,40 +31,30 @@ def presenca(request):
         }
         return HttpResponse(template.render(context, request))
 
+
 def lista(request):
     convidados = Convidado.objects.all()
-
-    template = loader.get_template("lista_convidados.html")
+    convidados_detalhes = []
+    contador_global = 1
+    for convidado in convidados:
+        detalhes_convidado = {
+            "numero": contador_global,
+            "nome": convidado.nome,
+            "confirmado": "Sim" if convidado.presenca_confirmada else "Não",
+            "mesa": convidado.mesa,
+            "acompanhantes": [],
+        }
+        convidados_detalhes.append(detalhes_convidado)
+        contador_global += 1
+        for acompanhante in convidado.acompanhante_set.all():
+            detalhes_acompanhante = {
+                "numero": contador_global,
+                "nome": acompanhante.nome,
+            }
+            detalhes_convidado["acompanhantes"].append(detalhes_acompanhante)
+            contador_global += 1
     context = {
-        "convidados": convidados,
-        "teste": dir(convidados[0]),
+        "convidados_detalhes": convidados_detalhes,
     }
+    template = loader.get_template("lista_convidados.html")
     return HttpResponse(template.render(context, request))
-
-# def carregar(request):
-#     # Lista de convidados e acompanhantes
-#     nomes = [
-#         "Elisbene", "Camila", "Carla", "Esposo Carla", "Junior", "Esposa Junior",
-#         "Erli", "Marco", "Esposa Marco", "Ruan", "Esposa Ruan", "Ludimila",
-#         "Esposo Ludimila", "Leonildo", "Esposa Leonildo", "Andreazo", "Alisson",
-#         "Raveli", "Esposa Raveli", "Cicero", "Esposa Cicero", "Juarez", "Esposa Juarez",
-#         "Alexandre", "Esposa Alexandre", "Manoel", "Adriana", "Adriele", "Antonio",
-#         "Esposa Antonio", "Maria Clara", "Edilson", "Paula", "Patricia", "Fabio",
-#         "Luana", "Erikles", "Lucenildo", "Lucicleide", "Milena", "Joana", "Reumer",
-#         "Esposa Reumer", "Lucimar", "Willames", "Esposa", "Isaias", "Samuel",
-#         "Renata", "Elton", "Esposa Elton", "Rafael", "Esposa Rafael", "Jonathan Batman",
-#         "Esposa Batman", "Jonathan Gordinho", "Esposa Gordinho", "Fran", "Esposo Fran",
-#         "Raul", "Esposa Raul", "Rafha", "Italo", "Beto", "Esposa Beto", "Pr Walter",
-#         "Esposa Walter", "Maria Clara – filha Alisson", "Matheus - filho Alisson",
-#         "Maria voinha", "Sânia", "Jose Roberto", "Samuel", "Saulo", "Elifio", "Esposa",
-#         "Tio Sandro", "Tia Andrea", "Milca", "Gustavo", "Miguel", "Daniel", "Kris",
-#         "Eduardo", "Kaline", "Diego", "Lana", "Thamison", "Isa", "Jhon", "Camila",
-#         "Marcos", "Bea", "Henrique", "Caique", "Luysa", "Matheus", "Aninha", "Nicole",
-#         "Joao", "Reinaldo", "Esposa Reinaldo", "Filho Reinaldo", "Pr Roseane", "Ana",
-#         "namorado", "Rodolfo", "Tati"
-#     ]
-#     for nome in nomes:
-#         convidado = Convidado.objects.create(nome=nome)
-#         convidado.save()
-#
-#     return HttpResponse("CONVIDADOS CARREGADOS")
